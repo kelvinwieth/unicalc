@@ -21,10 +21,17 @@ class Calculator {
 
     if (button.isOperation) {
       if (display?.value.isEmpty ?? true) {
+        if (button == ButtonType.minus) {
+          display!.appendValue(button.describe);
+        }
         return;
       }
 
       if (button == ButtonType.equals) {
+        if (_operation == null) {
+          return;
+        }
+
         final firstNumber = double.tryParse(_buffer) ?? 0;
         final secondNumber = double.tryParse(display!.value) ?? 0;
         double result = 0;
