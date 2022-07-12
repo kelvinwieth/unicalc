@@ -19,9 +19,9 @@ class _CalcDisplayState extends State<CalcDisplay> implements Display {
   String get value => _value;
 
   @override
-  void addValue(String value) {
+  void clear() {
     setState(() {
-      _value = value;
+      _value = '';
     });
   }
 
@@ -38,7 +38,17 @@ class _CalcDisplayState extends State<CalcDisplay> implements Display {
       children: [
         Expanded(
           child: Card(
-            child: Text(value),
+            color: Colors.grey[300],
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+              child: Text(
+                value,
+                textAlign: TextAlign.right,
+                style: const TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+            ),
           ),
         ),
       ],

@@ -13,11 +13,16 @@ class CalcButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: ElevatedButton(
-        onPressed: () {
-          Calculator.press(button);
-        },
-        child: Text(button.describe),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 5),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(primary: Colors.blueGrey),
+          child: Text(
+            button.describe,
+            style: const TextStyle(fontSize: 20),
+          ),
+          onPressed: () => Calculator.press(button),
+        ),
       ),
     );
   }

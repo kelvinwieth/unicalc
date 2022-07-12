@@ -8,47 +8,59 @@ class CalculatorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const CalcDisplay(),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            CalcButton(button: ButtonType.seven),
-            CalcButton(button: ButtonType.eight),
-            CalcButton(button: ButtonType.nine),
-            CalcButton(button: ButtonType.division),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            CalcButton(button: ButtonType.four),
-            CalcButton(button: ButtonType.five),
-            CalcButton(button: ButtonType.six),
-            CalcButton(button: ButtonType.times),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            CalcButton(button: ButtonType.one),
-            CalcButton(button: ButtonType.two),
-            CalcButton(button: ButtonType.three),
-            CalcButton(button: ButtonType.minus),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            CalcButton(button: ButtonType.zero),
-            CalcButton(button: ButtonType.dot),
-            CalcButton(button: ButtonType.plus),
-            CalcButton(button: ButtonType.equals),
-          ],
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const CalcDisplay(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              CalcButton(button: ButtonType.none),
+              CalcButton(button: ButtonType.none),
+              CalcButton(button: ButtonType.none),
+              CalcButton(button: ButtonType.clear),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              CalcButton(button: ButtonType.seven),
+              CalcButton(button: ButtonType.eight),
+              CalcButton(button: ButtonType.nine),
+              CalcButton(button: ButtonType.division),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              CalcButton(button: ButtonType.four),
+              CalcButton(button: ButtonType.five),
+              CalcButton(button: ButtonType.six),
+              CalcButton(button: ButtonType.times),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              CalcButton(button: ButtonType.one),
+              CalcButton(button: ButtonType.two),
+              CalcButton(button: ButtonType.three),
+              CalcButton(button: ButtonType.minus),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              CalcButton(button: ButtonType.zero),
+              CalcButton(button: ButtonType.dot),
+              CalcButton(button: ButtonType.plus),
+              CalcButton(button: ButtonType.equals),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

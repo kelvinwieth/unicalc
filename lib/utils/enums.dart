@@ -1,4 +1,5 @@
 enum ButtonType {
+  none,
   zero,
   one,
   two,
@@ -15,11 +16,42 @@ enum ButtonType {
   division,
   equals,
   dot,
+  clear,
 }
 
 extension ButtonTypeExtension on ButtonType {
+  static final _numbers = [
+    ButtonType.dot,
+    ButtonType.zero,
+    ButtonType.one,
+    ButtonType.two,
+    ButtonType.three,
+    ButtonType.four,
+    ButtonType.five,
+    ButtonType.six,
+    ButtonType.seven,
+    ButtonType.eight,
+    ButtonType.nine,
+  ];
+
+  static final _operations = [
+    ButtonType.plus,
+    ButtonType.minus,
+    ButtonType.times,
+    ButtonType.division,
+    ButtonType.equals,
+  ];
+
+  bool get isOperation => _operations.contains(this);
+
+  bool get isNumber => _numbers.contains(this);
+
+  bool get isSeparator => ButtonType.dot == this;
+
   String get describe {
     switch (this) {
+      case ButtonType.none:
+        return '';
       case ButtonType.zero:
         return '0';
       case ButtonType.one:
@@ -52,6 +84,8 @@ extension ButtonTypeExtension on ButtonType {
         return '=';
       case ButtonType.dot:
         return '.';
+      case ButtonType.clear:
+        return 'C';
     }
   }
 }
