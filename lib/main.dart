@@ -16,9 +16,48 @@ class UniCalc extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       home: Scaffold(
-        body: CalculatorWidget(),
+        body: const CalculatorWidget(),
+        floatingActionButton: Builder(builder: (context) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              FloatingActionButton(
+                child: const Icon(Icons.history),
+                onPressed: () {
+                  Calculator.getHistory().then(
+                    (history) => showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(20),
+                        ),
+                      ),
+                      builder: (context) => Padding(
+                        padding: MediaQuery.of(context).viewInsets,
+                        child: Center(
+                          child: Text(
+                            history,
+                            style: const TextStyle(
+                              fontSize: 25,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: 5),
+              FloatingActionButton(
+                child: const Icon(Icons.delete),
+                onPressed: () => Calculator.clearCalculations(),
+              ),
+            ],
+          );
+        }),
       ),
     );
   }

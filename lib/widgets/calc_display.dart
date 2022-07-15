@@ -13,6 +13,7 @@ class _CalcDisplayState extends State<CalcDisplay> implements Display {
 
   _CalcDisplayState() {
     Calculator.addDisplay(this);
+    Calculator.displayCalculations();
   }
 
   @override

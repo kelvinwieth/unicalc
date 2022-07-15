@@ -1,3 +1,8 @@
+import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:unicalc/models/calculation.dart';
 import 'package:unicalc/utils/enums.dart';
 
 abstract class Display {
@@ -10,6 +15,68 @@ class Calculator {
   static Display? display;
   static String _buffer = '';
   static ButtonType? _operation;
+
+  static void clearCalculations() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove('history');
+  }
+
+  static Future<String> getHistory() async {
+    var history = '';
+
+    final calcs = await getCalculations();
+
+    for (var calc in calcs) {
+      history += calc.toString();
+      history += '\n';
+    }
+
+    return history;
+  }
+
+  static void displayCalculations() async {
+    debugPrint('##### START OF DISPLAYING CALCULATIONS #####');
+    final calculations = await getCalculations();
+
+    for (var calculation in calculations) {
+      debugPrint(calculation.toString());
+    }
+    debugPrint('##### END OF DISPLAYING CALCULATIONS #####');
+  }
+
+  static Future<List<Calculation>> getCalculations() async {
+    final prefs = await SharedPreferences.getInstance();
+    final calculationStrings = prefs.getStringList('history');
+
+    if (calculationStrings == null) {
+      return [];
+    }
+
+    List<Calculation> calculations = [];
+
+    for (var calculationString in calculationStrings) {
+      final calculationJson = json.decode(calculationString) as Map<String, dynamic>;
+      final calculation = Calculation.fromJson(calculationJson);
+      calculations.add(calculation);
+    }
+
+    return calculations;
+  }
+
+  static void storeCalculation(Calculation calculation) async {
+    var calculations = await getCalculations();
+    calculations.add(calculation);
+
+    List<String> calculationStrings = [];
+
+    for (calculation in calculations) {
+      final calculationString = json.encode(calculation.toJson());
+      calculationStrings.add(calculationString);
+    }
+
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setStringList('history', calculationStrings);
+  }
 
   static void press(ButtonType button) {
     if (button == ButtonType.clear) {
@@ -47,6 +114,16 @@ class Calculator {
 
         display!.clear();
         display!.appendValue(result.toString());
+
+        final calculation = Calculation(
+          first: firstNumber,
+          second: secondNumber,
+          operation: _operation!.describe,
+          result: result,
+        );
+
+        storeCalculation(calculation);
+
         return;
       }
       _buffer = display!.value;
