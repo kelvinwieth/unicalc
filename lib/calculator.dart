@@ -102,6 +102,8 @@ class Calculator {
         final firstNumber = double.tryParse(_buffer) ?? 0;
         final secondNumber = double.tryParse(display!.value) ?? 0;
         final result = calculate(firstNumber, secondNumber, _operation!);
+
+        display!.clear();
         display!.appendValue(result.toString());
 
         final calculation = Calculation(
