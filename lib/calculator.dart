@@ -101,18 +101,7 @@ class Calculator {
 
         final firstNumber = double.tryParse(_buffer) ?? 0;
         final secondNumber = double.tryParse(display!.value) ?? 0;
-        double result = 0;
-        if (_operation == ButtonType.plus) {
-          result = firstNumber + secondNumber;
-        } else if (_operation == ButtonType.minus) {
-          result = firstNumber - secondNumber;
-        } else if (_operation == ButtonType.times) {
-          result = firstNumber * secondNumber;
-        } else if (_operation == ButtonType.division) {
-          result = firstNumber / secondNumber;
-        }
-
-        display!.clear();
+        final result = calculate(firstNumber, secondNumber, _operation!);
         display!.appendValue(result.toString());
 
         final calculation = Calculation(
@@ -140,6 +129,23 @@ class Calculator {
     }
 
     display?.appendValue(button.describe);
+  }
+
+  static double calculate(double first, double second, ButtonType operation) {
+    double result = 0;
+
+    if (operation == ButtonType.plus) {
+      result = first + second;
+    } else if (operation == ButtonType.minus) {
+      result = first - second;
+    } else if (operation == ButtonType.times) {
+      result = first * second;
+    } else if (operation == ButtonType.division) {
+      result = first / second;
+      debugPrint(result.toString());
+    }
+
+    return result;
   }
 
   static void addDisplay(Display display) {
